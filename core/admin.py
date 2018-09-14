@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Room, Meeting
+from core.models import Meeting, Room
 
 
 @admin.register(Room)

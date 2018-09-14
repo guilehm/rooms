@@ -17,13 +17,17 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 
+from api import views as api_views
 from rooms import settings
 
 router = routers.DefaultRouter()
+router.register(r'rooms', api_views.RoomViewSet)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls', namespace='core')),
+    path('api/', include((router.urls, 'api'), namespace='api')),
 ]
 
 if settings.DEBUG:
