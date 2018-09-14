@@ -20,6 +20,7 @@ from rooms import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('core.urls', namespace='core')),
 ]
 
 if settings.DEBUG:
