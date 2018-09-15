@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <title>Rooms!</title>
+    <title>rooms</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
@@ -21,6 +21,12 @@
                 <ul class="navbar-nav">
                     <li class="nav-link">
                         <a class="text-dark" href="{% url 'core:index' %}"><strong>home</strong></a>
+                    </li>
+                    <li class="nav-link">
+                        <a class="text-dark" href="{% url 'core:room-list' %}"><strong>salas</strong></a>
+                    </li>
+                    <li class="nav-link">
+                        <a class="text-dark" href="{% url 'core:meeting-list' %}"><strong>reuniões</strong></a>
                     </li>
                 </ul>
             </div>

@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load core_tags %}
+{% block content %}
+    <div class="container text-center py-5 my-5">
+        <h1 class="display-4">lista de salas</h1>
+        <p class="lead mt-3">
+            veja aqui as salas disponíveis
+        </p>
+        <a href="{% url 'api:room-list' %}" class="">API</a>
+    </div>
+    <div class="container text-center">
+        {% if rooms %}
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">nome</th>
+                        <th scope="col">slug</th>
+                        <th scope="col">ativa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                        <tr>
+                            <th scope="row">{{ room.id|default:'' }}</th>
+                            <td>{{ room.name|default:'' }}</td>
+                            <td>{{ room.slug|default:'' }}</td>
+                            <td>{{ room.active|translation|lower|default:'' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Oops!</strong> Nenhuma <a class="alert-link">sala</a> cadastrada.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
