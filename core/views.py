@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from core.models import Room, Meeting
+from core.models import Meeting, Room
 
 
 def index(request):

@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
-from api.serializers import RoomSerializer, MeetingSerializer
-from core.models import Room, Meeting
+from api.serializers import MeetingSerializer, RoomSerializer
+from core.models import Meeting, Room
 
 
 class RoomViewSet(viewsets.ModelViewSet):
