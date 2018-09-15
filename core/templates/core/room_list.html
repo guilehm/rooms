@@ -25,7 +25,7 @@
                             <th scope="row">{{ room.id|default:'' }}</th>
                             <td>{{ room.name|default:'' }}</td>
                             <td>{{ room.slug|default:'' }}</td>
-                            <td>{{ room.active|translation|default:'' }}</td>
+                            <td>{{ room.active|translation|lower|default:'' }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -11,6 +11,7 @@ django-debug-toolbar = "*"
 django-extensions = "*"
 pytest-django = "*"
 djangorestframework = "*"
+coreapi = "*"
 
 [dev-packages]
 

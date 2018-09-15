@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -34,3 +35,8 @@ class Meeting(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.start and self.end:
+            if self.start > self.end:
+                raise ValidationError('Start cannot be greater than end.')

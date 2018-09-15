@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
 
 from api import views as api_views
 from rooms import settings
@@ -28,6 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls', namespace='core')),
     path('api/', include((router.urls, 'api'), namespace='api')),
+    path('docs/', include_docs_urls(title='api')),
 ]
 
 if settings.DEBUG:
