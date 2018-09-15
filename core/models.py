@@ -27,8 +27,9 @@ class Meeting(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200, blank=True, null=True)
     active = models.BooleanField(default=True)
-    start = models.DateTimeField(db_index=True)
-    end = models.DateTimeField()
+    date = models.DateField(db_index=True)
+    start = models.TimeField(db_index=True)
+    end = models.TimeField()
 
     date_added = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)

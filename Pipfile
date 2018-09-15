@@ -12,6 +12,7 @@ django-extensions = "*"
 pytest-django = "*"
 djangorestframework = "*"
 coreapi = "*"
+django-filter = "*"
 
 [dev-packages]
 
