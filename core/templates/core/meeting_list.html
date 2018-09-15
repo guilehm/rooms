@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% load core_tags %}
+{% block content %}
+    <div class="container text-center py-5 my-5">
+        <h1 class="display-4">lista de reuniões</h1>
+        <p class="lead mt-3">
+            veja as reuniões agendadas
+        </p>
+        <a href="{% url 'api:meeting-list' %}" class="">API</a>
+    </div>
+    <div class="container text-center">
+        {% if meetings %}
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">nome</th>
+                        <th scope="col">sala</th>
+                        <th scope="col">ativa</th>
+                        <th scope="col">data</th>
+                        <th scope="col">início</th>
+                        <th scope="col">fim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for meeting in meetings %}
+                        <tr>
+                            <td>{{ meeting.name|default:'' }}</td>
+                            <td>{{ meeting.room.name|default:'' }}</td>
+                            <td>{{ meeting.active|translation|lower|default:'' }}</td>
+                            <td>{{ meeting.start|date:'d/m/Y'|default:'' }}</td>
+                            <td>{{ meeting.start|date:'H:m'|default:'' }}</td>
+                            <td>{{ meeting.end|date:'H:m'|default:'' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Oops!</strong> Nenhuma <a class="alert-link">reunião</a> agendada.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

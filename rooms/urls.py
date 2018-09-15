@@ -23,6 +23,7 @@ from rooms import settings
 
 router = routers.DefaultRouter()
 router.register(r'rooms', api_views.RoomViewSet)
+router.register(r'meetings', api_views.MeetingViewSet)
 
 
 urlpatterns = [
