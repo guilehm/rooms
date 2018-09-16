@@ -56,19 +56,9 @@ class Meeting(models.Model):
         if self.start and self.end:
             if self.start > self.end:
                 raise ValidationError('Start cannot be greater than end.')
-            if self.room.booked(date=self.date, start=self.start, end=self.end):
+            if self.room.booked(date=self.date, start=self.start, end=self.end) and self.active:
                 raise ValidationError(
                     'Room {room} already booked in this period.'.format(
                         room=self.room.name
                     )
                 )
-
-    def save(self, *args, **kwargs):
-        if self.start and self.end:
-            if self.room.booked(date=self.date, start=self.start, end=self.end):
-                raise ValidationError(
-                    'Room {room} already booked in this period.'.format(
-                        room=self.room.name
-                    )
-                )
-        super().save(*args, **kwargs)

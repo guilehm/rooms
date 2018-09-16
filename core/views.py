@@ -15,7 +15,7 @@ def room_list(request):
 
 
 def meeting_list(request):
-    meetings = Meeting.objects.all()
+    meetings = Meeting.objects.order_by('date', 'start')
     return render(request, 'core/meeting_list.html', {
         'meetings': meetings,
     })
