@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'debug_toolbar',
+    'drf_yasg',
     'core',
+
 ]
 
 MIDDLEWARE = [
