@@ -10,6 +10,7 @@
     </div>
     <div class="container text-center">
         {% if meetings %}
+            <div id="datatable"></div>
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
@@ -40,4 +41,33 @@
             </div>
         {% endif %}
     </div>
+    <script>
+    var datatable = new DataTable('#datatable', {
+	columns: [
+        'nome', 'sala', 'ativa', 'data', 'início',
+        {
+            name: 'fim',
+            id: 'fim',
+            width: 100,
+        }
+    ],
+    data: [
+        {% for meeting in meetings %}
+            [
+                '{{ meeting.name|default:'' }}',
+                '{{ meeting.room.name|default:'' }}',
+                '{{ meeting.active|translation|lower|default:'' }}',
+                '{{ meeting.date|date:'d/m/Y'|default:'' }}',
+                '{{ meeting.start|date:'H:i'|default:'' }}',
+                {
+                    content: '{{ meeting.end|date:'H:i'|default:'' }}',
+                    editable: false,
+                },
+
+            ],
+        {% endfor %}
+    ]
+})
+    </script>
 {% endblock %}
+
