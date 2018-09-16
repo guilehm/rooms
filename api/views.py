@@ -1,6 +1,6 @@
 import logging
 
-from django_filters import FilterSet
+from django_filters import FilterSet, TimeFilter
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
@@ -15,16 +15,24 @@ class RoomFilterSet(FilterSet):
         model = Room
         fields = [
             'slug',
-            'active'
+            'active',
         ]
 
 
 class MeetingFilterSet(FilterSet):
+    start_gte = TimeFilter(field_name='start', lookup_expr='gte')
+    end_lte = TimeFilter(field_name='end', lookup_expr='lte')
+
     class Meta:
         model = Meeting
         fields = [
             'room',
-            'status'
+            'status',
+            'date',
+            'start',
+            'end',
+            'start_gte',
+            'end_lte',
         ]
 
 
