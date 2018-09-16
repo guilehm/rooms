@@ -33,7 +33,9 @@
                         title  : '{{ meeting.name }}',
                         start  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.start }}',
                         end  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.end }}',
-                        allDay : false
+                        allDay : false,
+                        color: '{{ meeting.room.color }}',
+                        url: '{% url 'api:meeting-list' %} {{ meeting.id }}'
                     },
                 {% endfor %}
               ]
