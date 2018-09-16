@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    {% block extra_header %}
+    {% endblock %}
+
     <title>rooms</title>
 </head>
 <body>
@@ -30,6 +33,9 @@
                     </li>
                     <li class="nav-link">
                         <a class="text-dark" href="{% url 'core:meeting-list' %}"><strong>reuniões</strong></a>
+                    </li>
+                    <li class="nav-link">
+                        <a class="text-dark" href="{% url 'core:meeting-calendar' %}"><strong>calendário</strong></a>
                     </li>
                 </ul>
             </div>
