@@ -14,7 +14,7 @@ class RoomAdmin(admin.ModelAdmin):
 
 @admin.register(Meeting)
 class MeetingAdmin(admin.ModelAdmin):
-    list_display = ('name', 'room', 'active', 'start', 'end')
-    list_filter = ('room', 'active', 'start', 'date_added')
+    list_display = ('name', 'room', 'status', 'start', 'end')
+    list_filter = ('room', 'status', 'start', 'date_added')
     search_fields = ('name', 'description')
     ordering = ('start',)

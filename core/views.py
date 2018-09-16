@@ -8,7 +8,7 @@ def index(request):
 
 
 def room_list(request):
-    rooms = Room.objects.all()
+    rooms = Room.objects.order_by('name')
     return render(request, 'core/room_list.html', {
         'rooms': rooms,
     })

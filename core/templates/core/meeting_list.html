@@ -15,7 +15,7 @@
                     <tr>
                         <th scope="col">nome</th>
                         <th scope="col">sala</th>
-                        <th scope="col">ativa</th>
+                        <th scope="col">status</th>
                         <th scope="col">data</th>
                         <th scope="col">início</th>
                         <th scope="col">fim</th>
@@ -26,7 +26,11 @@
                         <tr>
                             <td>{{ meeting.name|default:'' }}</td>
                             <td>{{ meeting.room.name|default:'' }}</td>
-                            <td>{{ meeting.active|translation|lower|default:'' }}</td>
+                            {% if meeting.status == 'scheduled' %}
+                                <td>agendada</td>
+                            {% else %}
+                                <td style="color: red;">cancelada</td>
+                            {% endif %}
                             <td>{{ meeting.date|date:'d/m/Y'|default:'' }}</td>
                             <td>{{ meeting.start|date:'H:i'|default:'' }}</td>
                             <td>{{ meeting.end|date:'H:i'|default:'' }}</td>

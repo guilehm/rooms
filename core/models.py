@@ -17,16 +17,24 @@ class Room(models.Model):
             name=self.name
         )
 
-    def get_meetings(self, date, start, end):
-        meetings = self.meetings.filter(
+    def get_scheduled_meetings(self, date, start, end):
+        return self.meetings.filter(
             date=date,
             start__gte=start,
-            end__lte=end
+            end__lte=end,
+            status='scheduled'
         )
-        return meetings
+
+    def get_canceled_meetings(self, date, start, end):
+        return self.meetings.filter(
+            date=date,
+            start__gte=start,
+            end__lte=end,
+            status='canceled'
+        )
 
     def booked(self, date, start, end):
-        return self.get_meetings(
+        return self.get_scheduled_meetings(
             date=date,
             start=start,
             end=end
@@ -34,6 +42,12 @@ class Room(models.Model):
 
 
 class Meeting(models.Model):
+    SCHEDULED = 'scheduled'
+    CANCELED = 'canceled'
+    STATUS_CHOICES = (
+        (SCHEDULED, 'Scheduled'),
+        (CANCELED, 'Canceled'),
+    )
     room = models.ForeignKey(
         'core.Room',
         related_name='meetings',
@@ -41,7 +55,12 @@ class Meeting(models.Model):
     )
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200, blank=True, null=True)
-    active = models.BooleanField(default=True)
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=SCHEDULED,
+        db_index=True
+    )
     date = models.DateField(db_index=True)
     start = models.TimeField(db_index=True)
     end = models.TimeField()
@@ -56,7 +75,11 @@ class Meeting(models.Model):
         if self.start and self.end:
             if self.start > self.end:
                 raise ValidationError('Start cannot be greater than end.')
-            if self.room.booked(date=self.date, start=self.start, end=self.end) and self.active:
+            if self.room.booked(
+                date=self.date,
+                start=self.start,
+                end=self.end
+            ) and self.status == self.SCHEDULED:
                 raise ValidationError(
                     'Room {room} already booked in this period.'.format(
                         room=self.room.name
