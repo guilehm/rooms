@@ -90,6 +90,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
+    'EXCEPTION_HANDLER': 'utils.drf_exceptions.custom_exception_handler'
 }
 LOGGING = {
     'version': 1,
@@ -97,8 +98,8 @@ LOGGING = {
     'formatters': {
         'verbose': {
             'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
-                       'pathname=%(pathname)s lineno=%(lineno)s ' +
-                       'funcname=%(funcName)s %(message)s'),
+                       'pathname=%(pathname)s ' +
+                       '%(message)s'),
             'datefmt': '%Y-%m-%d %H:%M:%S'
         },
         'simple': {
@@ -106,10 +107,6 @@ LOGGING = {
         }
     },
     'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
