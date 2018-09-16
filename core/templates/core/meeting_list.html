@@ -27,9 +27,9 @@
                             <td>{{ meeting.name|default:'' }}</td>
                             <td>{{ meeting.room.name|default:'' }}</td>
                             <td>{{ meeting.active|translation|lower|default:'' }}</td>
-                            <td>{{ meeting.start|date:'d/m/Y'|default:'' }}</td>
-                            <td>{{ meeting.start|date:'H:m'|default:'' }}</td>
-                            <td>{{ meeting.end|date:'H:m'|default:'' }}</td>
+                            <td>{{ meeting.date|date:'d/m/Y'|default:'' }}</td>
+                            <td>{{ meeting.start|date:'H:i'|default:'' }}</td>
+                            <td>{{ meeting.end|date:'H:i'|default:'' }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
