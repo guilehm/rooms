@@ -10,75 +10,36 @@
     </div>
     <div class="container text-center">
         {% if meetings %}
-            <div id="datatable"></div>
+            <table id="myTable" class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">nome</th>
+                        <th scope="col">sala</th>
+                        <th scope="col">ativa</th>
+                        <th scope="col">data</th>
+                        <th scope="col">início</th>
+                        <th scope="col">fim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for meeting in meetings %}
+                        <tr>
+                            <td>{{ meeting.name|default:'' }}</td>
+                            <td>{{ meeting.room.name|default:'' }}</td>
+                            <td>{{ meeting.active|translation|lower|default:'' }}</td>
+                            <td>{{ meeting.date|date:'d/m/Y'|default:'' }}</td>
+                            <td>{{ meeting.start|date:'H:i'|default:'' }}</td>
+                            <td>{{ meeting.end|date:'H:i'|default:'' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <div class="alert alert-danger" role="alert">
                 <strong>Oops!</strong> Nenhuma <a class="alert-link">reunião</a> agendada.
             </div>
         {% endif %}
     </div>
-    <div class="container text-center">
-        <table id="myTable" class="table table-sm table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">nome</th>
-                    <th scope="col">sala</th>
-                    <th scope="col">ativa</th>
-                    <th scope="col">data</th>
-                    <th scope="col">início</th>
-                    <th scope="col">fim</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for meeting in meetings %}
-                    <tr>
-                        <td>{{ meeting.name|default:'' }}</td>
-                        <td>{{ meeting.room.name|default:'' }}</td>
-                        <td>{{ meeting.active|translation|lower|default:'' }}</td>
-                        <td>{{ meeting.date|date:'d/m/Y'|default:'' }}</td>
-                        <td>{{ meeting.start|date:'H:i'|default:'' }}</td>
-                        <td>{{ meeting.end|date:'H:i'|default:'' }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <script>
-        var datatable = new DataTable('#datatable', {
-            columns: [
-                'nome', 'sala', 'status', 'data', 'início',
-                {
-                    name: 'fim',
-                    id: 'fim',
-                    width: 80,
-                }
-            ],
-            data: [
-                {% for meeting in meetings %}
-                    [
-                        '{{ meeting.name|default:'' }}',
-                        '{{ meeting.room.name|default:'' }}',
-                        {
-                            content: '{% if meeting.active %}agendada{% else %}cancelada{% endif %}',
-                            editable: false,
-                            {% if not meeting.active %}
-                                format: (value) => {
-                                    return value.fontcolor('red');
-                                }
-                            {% endif %}
-                        },
-                        '{{ meeting.date|date:'d/m/Y'|default:'' }}',
-                        '{{ meeting.start|date:'H:i'|default:'' }}',
-                        {
-                            content: '{{ meeting.end|date:'H:i'|default:'' }}',
-                            editable: false,
-                        },
-
-                    ],
-                {% endfor %}
-            ]
-        })
-    </script>
     <script>
         $(document).ready( function () {
             $('#myTable').DataTable();
