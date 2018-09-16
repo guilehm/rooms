@@ -9,6 +9,7 @@ logger = logging.getLogger('rooms')
 
 
 class RoomSerializer(ModelSerializer):
+
     class Meta:
         model = Room
         fields = '__all__'
@@ -27,9 +28,22 @@ class RoomSerializer(ModelSerializer):
 
 
 class MeetingSerializer(ModelSerializer):
+    date = serializers.DateField(format='%d-%m-%Y', input_formats=['%d-%m-%Y', '%d/%m/%Y'])
+
     class Meta:
         model = Meeting
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+            'room',
+            'description',
+            'status',
+            'date',
+            'start',
+            'end',
+            'date_added',
+            'date_changed',
+        )
 
     def create(self, validated_data):
         logger.info(
