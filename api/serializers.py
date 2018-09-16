@@ -1,7 +1,11 @@
+import logging
+
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from core.models import Meeting, Room
+
+logger = logging.getLogger('rooms')
 
 
 class RoomSerializer(ModelSerializer):
@@ -9,11 +13,41 @@ class RoomSerializer(ModelSerializer):
         model = Room
         fields = '__all__'
 
+    def create(self, validated_data):
+        logger.info('Creating room "{name}".'.format(
+            name=validated_data.get('name')
+        ))
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        logger.info('Updating room "{name}".'.format(
+            name=instance.name
+        ))
+        return super().update(instance, validated_data)
+
 
 class MeetingSerializer(ModelSerializer):
     class Meta:
         model = Meeting
         fields = '__all__'
+
+    def create(self, validated_data):
+        logger.info(
+            'Creating meeting "{meeting_name}" for room "{room_name}".'.format(
+                meeting_name=validated_data.get('name'),
+                room_name=validated_data.get('room').name
+            )
+        )
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        logger.info(
+            'Updating meeting "{meeting_name}" for room "{room_name}".'.format(
+                meeting_name=validated_data.get('name'),
+                room_name=validated_data.get('room').name
+            )
+        )
+        return super().update(instance, validated_data)
 
     def validate(self, data):
         room = data.get('room')
@@ -24,14 +58,23 @@ class MeetingSerializer(ModelSerializer):
 
         if start and end:
             if start > end:
+                logger.error(
+                    'Problem trying to validate meeting. Start cannot be greater than end.',
+                )
                 raise serializers.ValidationError('Start cannot be greater than end.')
             if room.booked(
                 date=date,
                 start=start,
                 end=end
             ) and status == 'scheduled':
+                logger.error(
+                    'Problem trying to validate meeting. Room {room} already booked in this period.'.format(
+                        room=room.name,
+                    )
+                )
                 raise serializers.ValidationError(
                     'Room {room} already booked in this period.'.format(
                         room=room.name
                     )
                 )
+        return data

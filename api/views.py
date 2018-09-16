@@ -1,9 +1,13 @@
+import logging
+
 from django_filters import FilterSet
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
 from api.serializers import MeetingSerializer, RoomSerializer
 from core.models import Meeting, Room
+
+logger = logging.getLogger('rooms')
 
 
 class RoomFilterSet(FilterSet):
