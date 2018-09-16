@@ -1,4 +1,3 @@
-import django_filters
 from django_filters import FilterSet
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
@@ -21,7 +20,7 @@ class MeetingFilterSet(FilterSet):
         model = Meeting
         fields = [
             'room',
-            'active'
+            'status'
         ]
 
 
