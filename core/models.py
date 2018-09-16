@@ -17,16 +17,24 @@ class Room(models.Model):
             name=self.name
         )
 
-    def get_meetings(self, date, start, end):
-        meetings = self.meetings.filter(
+    def get_scheduled_meetings(self, date, start, end):
+        return self.meetings.filter(
             date=date,
             start__gte=start,
-            end__lte=end
+            end__lte=end,
+            status='scheduled'
         )
-        return meetings
+
+    def get_canceled_meetings(self, date, start, end):
+        return self.meetings.filter(
+            date=date,
+            start__gte=start,
+            end__lte=end,
+            status='canceled'
+        )
 
     def booked(self, date, start, end):
-        return self.get_meetings(
+        return self.get_scheduled_meetings(
             date=date,
             start=start,
             end=end
