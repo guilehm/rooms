@@ -36,6 +36,10 @@
                         color: '{{ meeting.room.color }}',
                         url: '{% url 'api:meeting-list' %}{{ meeting.id }}',
                         allDay : false,
+                        {% if meeting.status == 'canceled' %}
+                            borderColor: 'red',
+                            textColor: 'red'
+                        {% endif %}
                     },
                 {% endfor %}
               ]
