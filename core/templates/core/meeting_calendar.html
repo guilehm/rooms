@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block extra_header %}
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css' />
+    <script src='http://code.jquery.com/jquery-1.11.3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js'></script>
+    <script src={% static 'core/js/fullcalendar.js' %}></script>
+    <script src={% static 'core/js/pt-br.js' %}></script>
+{% endblock %}
+{% block content %}
+    <div class="container text-center py-5 my-5">
+        <h1 class="display-4">calendário de reuniões</h1>
+        <p class="lead mt-3">
+            veja as reuniões agendadas
+        </p>
+    </div>
+    <div class="container text-center">
+        <div id='calendar'></div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                locale: 'pt-br',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: [
+                {% for meeting in meetings %}
+                    {
+                        title  : '{{ meeting.name }}',
+                        start  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.start }}',
+                        end  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.end }}',
+                        color: '{{ meeting.room.color }}',
+                        url: '{% url 'api:meeting-list' %}{{ meeting.id }}',
+                        allDay : false,
+                        {% if meeting.status == 'canceled' %}
+                            borderColor: 'red',
+                            textColor: 'red'
+                        {% endif %}
+                    },
+                {% endfor %}
+              ]
+            })
+        });
+    </script>
+{% endblock %}

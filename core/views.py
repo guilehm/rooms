@@ -19,3 +19,10 @@ def meeting_list(request):
     return render(request, 'core/meeting_list.html', {
         'meetings': meetings,
     })
+
+
+def meeting_calendar(request):
+    meetings = Meeting.objects.order_by('date', 'start')
+    return render(request, 'core/meeting_calendar.html', {
+        'meetings': meetings,
+    })
