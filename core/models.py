@@ -7,6 +7,7 @@ class Room(models.Model):
     slug = models.SlugField()
     description = models.CharField(max_length=200, blank=True, null=True)
     active = models.BooleanField(default=True)
+    color = models.CharField(max_length=20, blank=True, null=True)
 
     date_added = models.DateTimeField(auto_now_add=True)
     date_changed = models.DateTimeField(auto_now=True)
