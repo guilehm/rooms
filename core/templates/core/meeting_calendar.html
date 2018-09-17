@@ -25,7 +25,7 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay'
+                    right: 'month,agendaWeek,agendaDay',
                 },
                 events: [
                 {% for meeting in meetings %}
@@ -33,12 +33,14 @@
                         title  : '{{ meeting.name }}',
                         start  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.start }}',
                         end  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.end }}',
-                        color: '{{ meeting.room.color }}',
+                        color: '{{ meeting.room.color|default:'darkblue' }}',
                         url: '{% url 'api:meeting-list' %}{{ meeting.id }}',
                         allDay : false,
                         {% if meeting.status == 'canceled' %}
                             borderColor: 'red',
-                            textColor: 'red'
+                            textColor: 'darkred',
+                        {% else %}
+                            borderColor: 'black',
                         {% endif %}
                     },
                 {% endfor %}

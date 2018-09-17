@@ -17,6 +17,7 @@
                         <th scope="col">nome</th>
                         <th scope="col">slug</th>
                         <th scope="col">ativa</th>
+                        <th scope="col">cor</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,7 @@
                             <td>{{ room.name|default:'' }}</td>
                             <td>{{ room.slug|default:'' }}</td>
                             <td>{{ room.active|translation|lower|default:'' }}</td>
+                            <td style="color: {{ room.color }};">{{ room.color|default:'' }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
