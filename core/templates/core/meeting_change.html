@@ -10,7 +10,7 @@
 {% endblock %}
 {% block api_url %}
     {% if meeting %}
-        <a href="{% url 'api:meeting-list' %}{{ meeting.id }}" target="_blank">API</a>
+        <a href="{% url 'api:meeting-detail' meeting.id %}">API</a>
     {% endif %}
 {% endblock %}
 {% block main_content %}

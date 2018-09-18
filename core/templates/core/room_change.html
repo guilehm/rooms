@@ -10,7 +10,7 @@
 {% endblock %}
 {% block api_url %}
     {% if room %}
-        <a href="{% url 'api:room-list' %}{{ room.id }}" target="_blank">API</a>
+        <a href="{% url 'api:room-detail' room.id %}" target="_blank">API</a>
     {% endif %}
 {% endblock %}
 {% block main_content %}
