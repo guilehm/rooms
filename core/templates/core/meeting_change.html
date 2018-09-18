@@ -1,0 +1,130 @@
+{% extends 'core/basic_template.html' %}
+{% load core_tags %}
+{% load i18n %}
+{% block h1 %}
+    {% if not meeting %}
+        inclua novas reuniões
+    {% else %}
+        edite esta reunião
+    {% endif %}
+{% endblock %}
+{% block api_url %}
+    {% if meeting %}
+        <a href="{% url 'api:meeting-list' %}{{ meeting.id }}" target="_blank">API</a>
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    {% language 'pt-BR' %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endlanguage %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label for="{{ form.room.id_for_label }}" class="col-sm-2 col-form-label">{{ form.room.label|translation }}</label>
+            <div class="col-sm-10">
+                <select name="{{ form.room.name }}" id="{{ form.room.id_for_label }}" class="form-control m-input" required>
+                    {% for room in rooms %}
+                        <option value="{{ room.id }}"
+                            {% if room.id == meeting.room.id %}
+                                selected
+                            {% endif %}
+                            >{{ room.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% language 'pt-BR' %}
+                    {% for error in form.room.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.name.id_for_label }}" class="col-sm-2 col-form-label">{{ form.name.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.name.field.widget.input_type }}" class="form-control" id="{{ form.name.id_for_label }}" name="{{ form.name.name }}" value="{{ form.name.value|default:'' }}" required>
+                {% language 'pt-BR' %}
+                    {% for error in form.name.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label">{{ form.description.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.description.field.widget.input_type }}" class="form-control" id="{{ form.description.id_for_label }}" name="{{ form.description.name }}" value="{{ form.description.value|default:'' }}">
+                {% language 'pt-BR' %}
+                    {% for error in form.description.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.status.id_for_label }}" class="col-sm-2 col-form-label">{{ form.status.label|translation }}</label>
+            <div class="col-sm-10">
+                <select name="{{ form.status.name }}" id="{{ form.status.id_for_label }}" class="form-control m-input" required>
+                    {% for choice in form.status.field.choices %}
+                        <option value="{{ choice.0 }}">{{ choice.1|translation }}</option>
+                    {% endfor %}
+                </select>
+                {% language 'pt-BR' %}
+                    {% for error in form.status.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.date.id_for_label }}" class="col-sm-2 col-form-label">{{ form.date.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.date.field.widget.input_type }}" class="form-control" id="{{ form.date.id_for_label }}" name="{{ form.date.name }}" placeholder="dd/mm/aaaa" required
+                {% if not meeting %}
+                    value="{{ form.date.value|default:'' }}">
+                {% else %}
+                    value="{{ meeting.date|date:'d/m/Y' }}">
+                {% endif %}
+                {% language 'pt-BR' %}
+                    {% for error in form.date.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.start.id_for_label }}" class="col-sm-2 col-form-label">{{ form.start.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.start.field.widget.input_type }}" class="form-control" id="{{ form.start.id_for_label }}" name="{{ form.start.name }}" value="{{ form.start.value|default:'' }}" placeholder="hh:mm" required>
+                {% language 'pt-BR' %}
+                    {% for error in form.start.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.end.id_for_label }}" class="col-sm-2 col-form-label">{{ form.end.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.end.field.widget.input_type }}" class="form-control" id="{{ form.end.id_for_label }}" name="{{ form.end.name }}" value="{{ form.end.value|default:'' }}" placeholder="hh:mm" required>
+                {% language 'pt-BR' %}
+                    {% for error in form.end.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">salvar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
