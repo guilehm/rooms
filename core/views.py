@@ -1,8 +1,8 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.utils.text import slugify
 from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.text import slugify
 
-from core.forms import RoomChangeForm
+from core.forms import MeetingChangeForm, RoomChangeForm
 from core.models import Meeting, Room
 
 
@@ -74,4 +74,50 @@ def room_change(request, room_id):
     return render(request, 'core/room_change.html', {
         'form': form,
         'room': room,
+    })
+
+
+def meeting_add(request):
+    rooms = Room.objects.all()
+    form = MeetingChangeForm()
+    if request.method == 'POST':
+        form = MeetingChangeForm(request.POST)
+        if form.is_valid():
+            meeting = form.save()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                extra_tags='success',
+                message='Reunião {name} criada com sucesso.'.format(
+                    name=meeting.name
+                )
+            )
+            return redirect('core:meeting-list')
+    return render(request, 'core/meeting_change.html', {
+        'form': form,
+        'rooms': rooms,
+    })
+
+
+def meeting_change(request, meeting_id):
+    meeting = get_object_or_404(Meeting, id=meeting_id)
+    rooms = Room.objects.all()
+    form = MeetingChangeForm(instance=meeting)
+    if request.method == 'POST':
+        form = MeetingChangeForm(data=request.POST, instance=meeting)
+        if form.is_valid():
+            meeting.save()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                extra_tags='success',
+                message='Reunião {name} editada com sucesso.'.format(
+                    name=meeting.name
+                )
+            )
+            return redirect('core:meeting-list')
+    return render(request, 'core/meeting_change.html', {
+        'form': form,
+        'rooms': rooms,
+        'meeting': meeting,
     })
