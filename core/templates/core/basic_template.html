@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <div class="container text-center py-5 my-5">
+        <h1 class="display-4">{% block h1 %}{% endblock %}</h1>
+        <p class="lead mt-3">
+            {% block lead %}{% endblock %}
+        </p>
+    {% block api_url %}
+    {% endblock %}
+    </div>
+    <div class="container text-center">
+        {% block main_content %}{% endblock %}
+    </div>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}
+{% extends 'core/basic_template.html' %}
 {% load static %}
 {% block extra_header %}
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css' />
@@ -8,13 +8,13 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js'></script>
     <script src={% static 'core/js/pt-br.js' %}></script>
 {% endblock %}
-{% block content %}
-    <div class="container text-center py-5 my-5">
-        <h1 class="display-4">calendário de reuniões</h1>
-        <p class="lead mt-3">
-            veja as reuniões agendadas
-        </p>
-    </div>
+{% block h1 %}
+    calendário de reuniões
+{% endblock %}
+{% block lead %}
+    veja as reuniões agendadas
+{% endblock %}
+{% block main_content %}
     <div class="container text-center">
         <div id='calendar'></div>
     </div>
