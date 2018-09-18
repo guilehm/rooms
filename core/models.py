@@ -13,32 +13,13 @@ class Room(models.Model):
     date_changed = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '#{id} - {name}'.format(
-            id=self.id,
-            name=self.name
-        )
+        return self.name
 
-    def get_scheduled_meetings(self, date, start, end):
+    def conflict(self, date, start, end):
         return self.meetings.filter(
             date=date,
-            start__gte=start,
-            end__lte=end,
-            status='scheduled'
-        )
-
-    def get_canceled_meetings(self, date, start, end):
-        return self.meetings.filter(
-            date=date,
-            start__gte=start,
-            end__lte=end,
-            status='canceled'
-        )
-
-    def booked(self, date, start, end):
-        return self.get_scheduled_meetings(
-            date=date,
-            start=start,
-            end=end
+            start__lte=end,
+            end__gte=start
         ).exists()
 
 
@@ -76,7 +57,7 @@ class Meeting(models.Model):
         if self.start and self.end:
             if self.start > self.end:
                 raise ValidationError('Start cannot be greater than end.')
-            if self.room.booked(
+            if self.room.conflict(
                 date=self.date,
                 start=self.start,
                 end=self.end

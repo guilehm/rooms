@@ -28,7 +28,6 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">nome</th>
-                <th scope="col">slug</th>
                 <th scope="col">ativa</th>
                 <th scope="col">cor</th>
                 <th scope="col">editar</th>
@@ -39,7 +38,6 @@
                 <tr>
                     <th scope="row">{{ room.id|default:'' }}</th>
                     <td>{{ room.name|default:'' }}</td>
-                    <td>{{ room.slug|default:'' }}</td>
                     <td>{{ room.active|translation|lower|default:'' }}</td>
                     <td style="color: {{ room.color }};">{{ room.color|default:'' }}</td>
                     <td><a href="{% url 'core:room-change' room.id %}"><i class="material-icons text-dark">&#xe22b;</i></a></td>
