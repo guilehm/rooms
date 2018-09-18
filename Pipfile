@@ -14,6 +14,11 @@ djangorestframework = "*"
 coreapi = "*"
 django-filter = "*"
 drf-yasg = "*"
+dj-database-url = "*"
+dj-static = "*"
+"static3" = "*"
+gunicorn = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 
