@@ -10,6 +10,13 @@ translation_dict = {
     'Description': 'Descrição',
     'Active': 'Ativa',
     'Color': 'Cor',
+    'Room': 'Sala',
+    'Scheduled': 'Agendada',
+    'Canceled': 'Cancelada',
+    'Status': 'Status',
+    'Date': 'Data',
+    'Start': 'Início',
+    'End': 'Fim',
 }
 
 
