@@ -140,14 +140,14 @@
     <script>
         $('#{{ form.date.id_for_label }}').datepicker({
             uiLibrary: 'bootstrap4',
-            format: 'dd-mm-yyyy',
+            format: 'dd/mm/yyyy',
         });
         $('#{{ form.start.id_for_label }}').timepicker({
-            format: 'HH.MM',
+            format: 'HH:MM',
             mode: '24hr',
         });
         $('#{{ form.end.id_for_label }}').timepicker({
-            format: 'HH.MM',
+            format: 'HH:MM',
             mode: '24hr',
         });
     </script>

@@ -9,7 +9,6 @@ class RoomChangeForm(forms.ModelForm):
         fields = (
             'name',
             'description',
-            'active',
             'color',
         )
 

@@ -5,8 +5,8 @@ from core.models import Meeting, Room
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug', 'active')
-    list_filter = ('active', 'date_added')
+    list_display = ('name', 'slug', 'color')
+    list_filter = ('date_added',)
     search_fields = ('name',)
     ordering = ('name',)
     prepopulated_fields = {'slug': ('name',)}
