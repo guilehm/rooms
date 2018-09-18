@@ -30,9 +30,6 @@
                         <a class="text-dark" href="{% url 'core:index' %}"><strong>home</strong></a>
                     </li>
                     <li class="nav-link">
-                        <a class="text-dark" href="{% url 'core:meeting-list' %}"><strong>reuniões</strong></a>
-                    </li>
-                    <li class="nav-link">
                         <a class="text-dark" href="{% url 'core:meeting-calendar' %}"><strong>calendário</strong></a>
                     </li>
                 </ul>
@@ -43,6 +40,15 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="{% url 'core:room-list' %}">listar</a>
                         <a class="dropdown-item" href="{% url 'core:room-add' %}">incluir</a>
+                    </div>
+                </div>
+                <div class="dropdown mt-2 mt-lg-0">
+                    <a class="dropdown-toggle nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;">
+                        <strong>reuniões</strong>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{% url 'core:meeting-list' %}">listar</a>
+                        <a class="dropdown-item" href="{% url 'core:meeting-add' %}">incluir</a>
                     </div>
                 </div>
             </div>

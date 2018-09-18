@@ -8,7 +8,7 @@
     veja aqui as salas disponíveis
 {% endblock %}
 {% block api_url %}
-    <a href="{% url 'api:room-list' %}">API</a>
+    <a href="{% url 'api:room-list' %}" target="_blank">API</a>
 {% endblock %}
 
 {% block main_content %}
@@ -45,6 +45,7 @@
                     <td><a href="{% url 'core:room-change' room.id %}"><i class="material-icons text-dark">&#xe22b;</i></a></td>
                 </tr>
             {% endfor %}
+        <strong></strong>
         </tbody>
     </table>
 {% else %}

@@ -9,6 +9,16 @@
         <a href="{% url 'api:meeting-list' %}" class="">API</a>
     </div>
     <div class="container text-center">
+    {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
         {% if meetings %}
             <table id="meetingTable" class="table table-sm table-hover">
                 <thead>
@@ -19,6 +29,7 @@
                         <th scope="col">data</th>
                         <th scope="col">início</th>
                         <th scope="col">fim</th>
+                        <th scope="col">editar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +45,7 @@
                             <td>{{ meeting.date|date:'d/m/Y'|default:'' }}</td>
                             <td>{{ meeting.start|date:'H:i'|default:'' }}</td>
                             <td>{{ meeting.end|date:'H:i'|default:'' }}</td>
+                            <td><a href="{% url 'core:meeting-change' meeting.id %}"><i class="material-icons text-dark">&#xe22b;</i></a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -8,6 +8,11 @@
         edite esta sala
     {% endif %}
 {% endblock %}
+{% block api_url %}
+    {% if room %}
+        <a href="{% url 'api:room-list' %}{{ room.id }}" target="_blank">API</a>
+    {% endif %}
+{% endblock %}
 {% block main_content %}
     <form method="post">
         {% csrf_token %}
