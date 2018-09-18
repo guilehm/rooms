@@ -15,7 +15,6 @@ class RoomFilterSet(FilterSet):
         model = Room
         fields = [
             'slug',
-            'active',
         ]
 
 

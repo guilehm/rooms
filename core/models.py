@@ -6,7 +6,6 @@ class Room(models.Model):
     name = models.CharField(max_length=100, unique=True, db_index=True)
     slug = models.SlugField()
     description = models.CharField(max_length=200, blank=True, null=True)
-    active = models.BooleanField(default=True)
     color = models.CharField(max_length=20, blank=True, null=True)
 
     date_added = models.DateTimeField(auto_now_add=True)
@@ -14,6 +13,10 @@ class Room(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.color = self.color.lower()
+        return super().save(*args, **kwargs)
 
     def conflict(self, date, start, end):
         return self.meetings.filter(
