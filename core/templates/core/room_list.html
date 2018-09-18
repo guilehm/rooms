@@ -12,6 +12,16 @@
 {% endblock %}
 
 {% block main_content %}
+    {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
 {% if rooms %}
     <table class="table table-sm table-hover">
         <thead>
@@ -21,6 +31,7 @@
                 <th scope="col">slug</th>
                 <th scope="col">ativa</th>
                 <th scope="col">cor</th>
+                <th scope="col">editar</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +42,7 @@
                     <td>{{ room.slug|default:'' }}</td>
                     <td>{{ room.active|translation|lower|default:'' }}</td>
                     <td style="color: {{ room.color }};">{{ room.color|default:'' }}</td>
+                    <td><a href="{% url 'core:room-change' room.id %}"><i class="material-icons text-dark">&#xe22b;</i></a></td>
                 </tr>
             {% endfor %}
         </tbody>
