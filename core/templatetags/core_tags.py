@@ -4,7 +4,19 @@ register = template.Library()
 
 translation_dict = {
     'True': 'Sim',
-    'False': 'Não'
+    'False': 'Não',
+    'Name': 'Nome',
+    'Slug': 'Slug',
+    'Description': 'Descrição',
+    'Active': 'Ativa',
+    'Color': 'Cor',
+    'Room': 'Sala',
+    'Scheduled': 'Agendada',
+    'Canceled': 'Cancelada',
+    'Status': 'Status',
+    'Date': 'Data',
+    'Start': 'Início',
+    'End': 'Fim',
 }
 
 
