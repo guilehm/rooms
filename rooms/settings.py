@@ -174,7 +174,7 @@ if os.getcwd() == '/app':
 
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    ALLOWED_HOSTS = ['rooms.herokuapp.com']
+    ALLOWED_HOSTS = ['gui-rooms.herokuapp.com']
 
     DEBUG = False
 
