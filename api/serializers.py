@@ -12,7 +12,13 @@ class RoomSerializer(ModelSerializer):
 
     class Meta:
         model = Room
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+            'slug',
+            'description',
+            'color',
+        )
 
     def create(self, validated_data):
         logger.info('Creating room "{name}".'.format(
@@ -41,8 +47,6 @@ class MeetingSerializer(ModelSerializer):
             'date',
             'start',
             'end',
-            'date_added',
-            'date_changed',
         )
 
     def create(self, validated_data):
@@ -76,7 +80,7 @@ class MeetingSerializer(ModelSerializer):
                     'Problem trying to validate meeting. Start cannot be greater than end.',
                 )
                 raise serializers.ValidationError('Start cannot be greater than end.')
-            if room.booked(
+            if room.conflict(
                 date=date,
                 start=start,
                 end=end

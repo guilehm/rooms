@@ -15,15 +15,14 @@
 {% endblock %}
 {% block main_content %}
     {% language 'pt-BR' %}
-        {% for error in form.non_field_errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ error }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        {% endfor %}
-    {% endlanguage %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
     <form method="post">
         {% csrf_token %}
         <div class="form-group row">
@@ -45,33 +44,27 @@
                         {% endfor %}
                     {% endif %}
                 </select>
-                {% language 'pt-BR' %}
-                    {% for error in form.room.errors %}
-                        <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
-                {% endlanguage %}
+                {% for error in form.room.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.name.id_for_label }}" class="col-sm-2 col-form-label">{{ form.name.label|translation }}</label>
             <div class="col-sm-10">
                 <input type="{{ form.name.field.widget.input_type }}" class="form-control" id="{{ form.name.id_for_label }}" name="{{ form.name.name }}" value="{{ form.name.value|default:'' }}" required>
-                {% language 'pt-BR' %}
-                    {% for error in form.name.errors %}
-                        <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
-                {% endlanguage %}
+                {% for error in form.name.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label">{{ form.description.label|translation }}</label>
             <div class="col-sm-10">
                 <input type="{{ form.description.field.widget.input_type }}" class="form-control" id="{{ form.description.id_for_label }}" name="{{ form.description.name }}" value="{{ form.description.value|default:'' }}">
-                {% language 'pt-BR' %}
-                    {% for error in form.description.errors %}
-                        <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
-                {% endlanguage %}
+                {% for error in form.description.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
             </div>
         </div>
         <div class="form-group row">
@@ -82,11 +75,9 @@
                         <option value="{{ choice.0 }}">{{ choice.1|translation }}</option>
                     {% endfor %}
                 </select>
-                {% language 'pt-BR' %}
-                    {% for error in form.status.errors %}
-                        <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
-                {% endlanguage %}
+                {% for error in form.status.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
             </div>
         </div>
         <div class="form-group row">
@@ -98,33 +89,27 @@
                 {% else %}
                     value="{{ meeting.date|date:'d/m/Y' }}">
                 {% endif %}
-                {% language 'pt-BR' %}
-                    {% for error in form.date.errors %}
-                        <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
-                {% endlanguage %}
+                {% for error in form.date.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.start.id_for_label }}" class="col-sm-2 col-form-label">{{ form.start.label|translation }}</label>
             <div class="col-sm-10">
                 <input type="{{ form.start.field.widget.input_type }}" class="form-control" id="{{ form.start.id_for_label }}" name="{{ form.start.name }}" value="{{ form.start.value|default:'' }}" placeholder="hh:mm" required>
-                {% language 'pt-BR' %}
                     {% for error in form.start.errors %}
                         <small class="form-text text-danger">{{ error }}</small>
                     {% endfor %}
-                {% endlanguage %}
             </div>
         </div>
         <div class="form-group row">
             <label for="{{ form.end.id_for_label }}" class="col-sm-2 col-form-label">{{ form.end.label|translation }}</label>
             <div class="col-sm-10">
                 <input type="{{ form.end.field.widget.input_type }}" class="form-control" id="{{ form.end.id_for_label }}" name="{{ form.end.name }}" value="{{ form.end.value|default:'' }}" placeholder="hh:mm" required>
-                {% language 'pt-BR' %}
-                    {% for error in form.end.errors %}
-                        <small class="form-text text-danger">{{ error }}</small>
-                    {% endfor %}
-                {% endlanguage %}
+                {% for error in form.end.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
             </div>
         </div>
         <div class="form-group row">
@@ -133,6 +118,7 @@
             </div>
         </div>
     </form>
+    {% endlanguage %}
     {% block extra_header %}
         <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
         <link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/css/gijgo.min.css" rel="stylesheet" type="text/css" />
