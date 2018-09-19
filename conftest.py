@@ -12,7 +12,13 @@ def public_client():
 
 @pytest.fixture
 def room_one():
-    return mommy.make('core.Room')
+    return mommy.make(
+        'core.Room',
+        name='São Paulo',
+        slug='sao-paulo',
+        description='Sala para até 10 pessoas',
+        color='red',
+    )
 
 
 @pytest.fixture

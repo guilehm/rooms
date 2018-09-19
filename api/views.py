@@ -39,11 +39,11 @@ class RoomViewSet(viewsets.ModelViewSet):
     queryset = Room.objects.all()
     serializer_class = RoomSerializer
     permission_classes = (AllowAny,)
-    filter_class = RoomFilterSet
+    filterset_class = RoomFilterSet
 
 
 class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
     serializer_class = MeetingSerializer
     permission_classes = (AllowAny,)
-    filter_class = MeetingFilterSet
+    filterset_class = MeetingFilterSet
