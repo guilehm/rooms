@@ -106,6 +106,12 @@ class TestMeetingCreation:
         return payload
 
     @pytest.fixture
+    def payload_conflicting_meeting_creation_with_canceled_status(self, payload_conflicting_meeting_creation):
+        payload = deepcopy(payload_conflicting_meeting_creation)
+        payload['status'] = 'canceled'
+        return payload
+
+    @pytest.fixture
     def payload_end_greater_than_start_meeting_creation(self, payload_meeting_creation):
         payload = deepcopy(payload_meeting_creation)
         payload['start'] = '18:00'
@@ -146,6 +152,19 @@ class TestMeetingCreation:
         assert response.json()['non_field_errors'][0] == 'Room {name} already booked in this period.'.format(
             name=room_one.name
         )
+
+    def test_should_create_meeting_with_conflicting_time_but_canceled_status(
+            self,
+            meeting_endpoint,
+            public_client,
+            payload_conflicting_meeting_creation_with_canceled_status,
+            meeting_one,
+            room_one
+    ):
+        response = public_client.post(
+            meeting_endpoint, data=payload_conflicting_meeting_creation_with_canceled_status, format='json'
+        )
+        assert response.status_code == status.HTTP_201_CREATED
 
     def test_should_not_create_meeting_with_end_greater_than_start(
             self, meeting_endpoint, public_client, payload_end_greater_than_start_meeting_creation, room_one
