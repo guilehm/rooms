@@ -1,5 +1,6 @@
 import pytest
 from django.urls import reverse
+from django.utils import timezone
 
 from rest_framework import status
 
@@ -51,3 +52,31 @@ class TestRoomPayload:
         json_response = response.json()
         assert response.status_code == status.HTTP_200_OK
         assert json_response == payload_room_list
+
+
+@pytest.mark.django_db
+class TestMeetingCreation:
+
+    @pytest.fixture
+    def meeting_endpoint(self):
+        return reverse('api:meeting-list')
+
+    @pytest.fixture
+    def payload_meeting_creation(self):
+        return {
+            "name": "Apresentação de projeto",
+            "room": 1,
+            "description": "apresentação do projeto para o cliente",
+            "status": "scheduled",
+            "date": "25/12/2018",
+            "start": timezone.now().time(),
+            "end": (timezone.now() + timezone.timedelta(minutes=120)).time()
+        }
+
+    def test_should_create_meeting(
+            self, meeting_endpoint, public_client, payload_meeting_creation, room_one
+    ):
+        response = public_client.post(
+            meeting_endpoint, data=payload_meeting_creation, format='json'
+        )
+        assert response.status_code == status.HTTP_201_CREATED

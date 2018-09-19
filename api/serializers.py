@@ -80,7 +80,7 @@ class MeetingSerializer(ModelSerializer):
                     'Problem trying to validate meeting. Start cannot be greater than end.',
                 )
                 raise serializers.ValidationError('Start cannot be greater than end.')
-            if room.booked(
+            if room.conflict(
                 date=date,
                 start=start,
                 end=end
