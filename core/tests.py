@@ -75,10 +75,41 @@ class TestMeetingCreation:
         }
 
     @pytest.fixture
+    def payload_meeting_creation_with_different_date_format(self):
+        return {
+            "name": "Apresentação de projeto",
+            "room": 1,
+            "description": "apresentação do projeto para o cliente",
+            "status": "scheduled",
+            "date": "26-12-2018",
+            "start": "14:00",
+            "end": "16:00"
+        }
+
+    @pytest.fixture
+    def payload_meeting_creation_with_different_time_format(self):
+        return {
+            "name": "Apresentação de projeto",
+            "room": 1,
+            "description": "apresentação do projeto para o cliente",
+            "status": "scheduled",
+            "date": "26-12-2018",
+            "start": "14:00:00",
+            "end": "16:00:00"
+        }
+
+    @pytest.fixture
     def payload_conflicting_meeting_creation(self, payload_meeting_creation):
         payload = deepcopy(payload_meeting_creation)
         payload['start'] = '12:00'
         payload['end'] = '18:00'
+        return payload
+
+    @pytest.fixture
+    def payload_end_greater_than_start_meeting_creation(self, payload_meeting_creation):
+        payload = deepcopy(payload_meeting_creation)
+        payload['start'] = '18:00'
+        payload['end'] = '10:00'
         return payload
 
     def test_should_create_meeting(
@@ -86,6 +117,22 @@ class TestMeetingCreation:
     ):
         response = public_client.post(
             meeting_endpoint, data=payload_meeting_creation, format='json'
+        )
+        assert response.status_code == status.HTTP_201_CREATED
+
+    def test_should_create_meeting_with_different_date_format(
+            self, meeting_endpoint, public_client, payload_meeting_creation_with_different_date_format, room_one
+    ):
+        response = public_client.post(
+            meeting_endpoint, data=payload_meeting_creation_with_different_date_format, format='json'
+        )
+        assert response.status_code == status.HTTP_201_CREATED
+
+    def test_should_create_meeting_with_different_time_format(
+            self, meeting_endpoint, public_client, payload_meeting_creation_with_different_time_format, room_one
+    ):
+        response = public_client.post(
+            meeting_endpoint, data=payload_meeting_creation_with_different_time_format, format='json'
         )
         assert response.status_code == status.HTTP_201_CREATED
 
