@@ -30,6 +30,8 @@ def room_two():
 def meeting_one(room_one):
     return mommy.make(
         'core.Meeting',
+        name='Reunião com investidores',
+        description='Apresentação de resultados do trimestre',
         room=room_one,
         date='2018-12-26',
         status='scheduled',
