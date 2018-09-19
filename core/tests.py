@@ -20,6 +20,20 @@ class TestRoomCreation:
             "color": "green",
         }
 
+    def test_should_create_room(self, rooms_endpoint, public_client, payload_room_creation):
+        response = public_client.post(
+            rooms_endpoint, data=payload_room_creation, format='json'
+        )
+        assert response.status_code == status.HTTP_201_CREATED
+
+
+@pytest.mark.django_db
+class TestRoomPayload:
+
+    @pytest.fixture
+    def rooms_endpoint(self):
+        return reverse('api:room-list')
+
     @pytest.fixture
     def payload_room_list(self, room_one):
         return [
@@ -29,16 +43,8 @@ class TestRoomCreation:
                 "slug": "sao-paulo",
                 "description": "Sala para até 10 pessoas",
                 "color": "red",
-                "date_added": room_one.date_added.isoformat().replace('+00:00', 'Z'),
-                "date_changed": room_one.date_changed.isoformat().replace('+00:00', 'Z'),
             }
         ]
-
-    def test_should_create_room(self, rooms_endpoint, public_client, payload_room_creation):
-        response = public_client.post(
-            rooms_endpoint, data=payload_room_creation, format='json'
-        )
-        assert response.status_code == status.HTTP_201_CREATED
 
     def test_should_return_right_payload(self, rooms_endpoint, public_client, payload_room_list):
         response = public_client.get(rooms_endpoint)
