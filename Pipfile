@@ -19,6 +19,7 @@ dj-static = "*"
 "static3" = "*"
 gunicorn = "*"
 "psycopg2" = "*"
+model-mommy = "*"
 
 [dev-packages]
 
