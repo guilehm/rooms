@@ -31,10 +31,10 @@ def meeting_one(room_one):
     return mommy.make(
         'core.Meeting',
         room=room_one,
-        date=timezone.now().date(),
+        date='2018-12-26',
         status='scheduled',
-        start=timezone.now(),
-        end=timezone.now() + timezone.timedelta(minutes=100),
+        start='14:00',
+        end='16:00',
     )
 
 
@@ -43,10 +43,11 @@ def meeting_two(room_two):
     return mommy.make(
         'core.Meeting',
         room=room_two,
+        date='2018-12-26',
         status='scheduled',
-        date=timezone.now().date(),
-        start=timezone.now(),
-        end=timezone.now() + timezone.timedelta(minutes=240),
+        start='14:00',
+        end='16:00',
     )
+
 
 

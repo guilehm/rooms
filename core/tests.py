@@ -1,6 +1,7 @@
 import pytest
 from django.urls import reverse
 from django.utils import timezone
+from copy import deepcopy
 
 from rest_framework import status
 
@@ -68,10 +69,17 @@ class TestMeetingCreation:
             "room": 1,
             "description": "apresentação do projeto para o cliente",
             "status": "scheduled",
-            "date": "25/12/2018",
-            "start": timezone.now().time(),
-            "end": (timezone.now() + timezone.timedelta(minutes=120)).time()
+            "date": "26/12/2018",
+            "start": "14:00",
+            "end": "16:00"
         }
+
+    @pytest.fixture
+    def payload_conflicting_meeting_creation(self, payload_meeting_creation):
+        payload = deepcopy(payload_meeting_creation)
+        payload['start'] = '12:00'
+        payload['end'] = '18:00'
+        return payload
 
     def test_should_create_meeting(
             self, meeting_endpoint, public_client, payload_meeting_creation, room_one
@@ -80,3 +88,14 @@ class TestMeetingCreation:
             meeting_endpoint, data=payload_meeting_creation, format='json'
         )
         assert response.status_code == status.HTTP_201_CREATED
+
+    def test_should_not_create_meeting_with_conflicting_time(
+            self, meeting_endpoint, public_client, payload_conflicting_meeting_creation, meeting_one, room_one
+    ):
+        response = public_client.post(
+            meeting_endpoint, data=payload_conflicting_meeting_creation, format='json'
+        )
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.json()['non_field_errors'][0] == 'Room {name} already booked in this period.'.format(
+            name=room_one.name
+        )
