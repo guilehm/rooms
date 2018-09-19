@@ -1,7 +1,6 @@
 import pytest
 from model_mommy import mommy
 from rest_framework.test import APIClient
-from django.utils import timezone
 
 
 @pytest.fixture
@@ -50,6 +49,3 @@ def meeting_two(room_two):
         start='14:00',
         end='16:00',
     )
-
-
-
