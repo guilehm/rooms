@@ -1,8 +1,7 @@
-import pytest
-from django.urls import reverse
-from django.utils import timezone
 from copy import deepcopy
 
+import pytest
+from django.urls import reverse
 from rest_framework import status
 
 
