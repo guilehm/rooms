@@ -146,3 +146,41 @@ class TestMeetingCreation:
         assert response.json()['non_field_errors'][0] == 'Room {name} already booked in this period.'.format(
             name=room_one.name
         )
+
+    def test_should_not_create_meeting_with_end_greater_than_start(
+            self, meeting_endpoint, public_client, payload_end_greater_than_start_meeting_creation, room_one
+    ):
+        response = public_client.post(
+            meeting_endpoint, data=payload_end_greater_than_start_meeting_creation, format='json'
+        )
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert response.json()['non_field_errors'][0] == 'Start cannot be greater than end.'
+
+
+@pytest.mark.django_db
+class TestMeetingPayload:
+
+    @pytest.fixture
+    def meeting_endpoint(self):
+        return reverse('api:meeting-list')
+
+    @pytest.fixture
+    def payload_meeting_list(self, meeting_one):
+        return [
+            {
+                "id": 1,
+                "name": "Reunião com investidores",
+                "room": 1,
+                "description": "Apresentação de resultados do trimestre",
+                "status": "scheduled",
+                "date": "26-12-2018",
+                "start": "14:00:00",
+                "end": "16:00:00",
+            }
+        ]
+
+    def test_should_return_right_payload(self, meeting_endpoint, public_client, payload_meeting_list):
+        response = public_client.get(meeting_endpoint)
+        json_response = response.json()
+        assert response.status_code == status.HTTP_200_OK
+        assert json_response == payload_meeting_list
