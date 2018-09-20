@@ -15,7 +15,7 @@ class Room(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.color = self.color.lower()
+        self.color = self.color.lower() if self.color else ''
         return super().save(*args, **kwargs)
 
     def conflict(self, date, start, end, meeting_id):
