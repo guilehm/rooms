@@ -18,11 +18,13 @@ class Room(models.Model):
         self.color = self.color.lower()
         return super().save(*args, **kwargs)
 
-    def conflict(self, date, start, end):
+    def conflict(self, date, start, end, meeting_id):
         return self.meetings.filter(
             date=date,
             start__lte=end,
-            end__gte=start
+            end__gte=start,
+        ).exclude(
+            id=meeting_id
         ).exists()
 
 
@@ -63,7 +65,8 @@ class Meeting(models.Model):
             if self.room.conflict(
                 date=self.date,
                 start=self.start,
-                end=self.end
+                end=self.end,
+                meeting_id=self.id
             ) and self.status == self.SCHEDULED:
                 raise ValidationError(
                     'Room {room} already booked in this period.'.format(
