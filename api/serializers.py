@@ -73,6 +73,7 @@ class MeetingSerializer(ModelSerializer):
         start = data.get('start')
         end = data.get('end')
         status = data.get('status')
+        meeting_id = self.context.get('request').data.get('id')
 
         if start and end:
             if start > end:
@@ -83,7 +84,8 @@ class MeetingSerializer(ModelSerializer):
             if room.conflict(
                 date=date,
                 start=start,
-                end=end
+                end=end,
+                meeting_id=meeting_id,
             ) and status == 'scheduled':
                 logger.error(
                     'Problem trying to validate meeting. Room {room} already booked in this period.'.format(
