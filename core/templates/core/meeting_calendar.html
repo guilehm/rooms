@@ -31,8 +31,8 @@
                 {% for meeting in meetings %}
                     {
                         title  : '{{ meeting.name }}',
-                        start  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.start }}',
-                        end  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.end }}',
+                        start  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.start|date:'H:i' }}',
+                        end  : '{{ meeting.date|date:'Y-m-d' }}T{{ meeting.end|date:'H:i' }}',
                         color: '{{ meeting.room.color|default:'darkblue' }}',
                         url: '{% url 'api:meeting-list' %}{{ meeting.id }}',
                         allDay : false,
