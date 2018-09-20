@@ -1,6 +1,7 @@
 import datetime
 import random
 
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from model_mommy import mommy
 
@@ -35,12 +36,15 @@ def create_meetings(rooms, quantity=1):
         rooms = random.choice(rooms)
         date = random_date()
         start, end = random_time()
-        meetings.append(mommy.make(
-            Meeting,
-            date=date,
-            name=name,
-            room=rooms,
-            start=start,
-            end=end
-        ))
+        try:
+            meetings.append(mommy.make(
+                Meeting,
+                date=date,
+                name=name,
+                room=rooms,
+                start=start,
+                end=end
+            ))
+        except ValidationError:
+            pass
     return meetings

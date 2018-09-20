@@ -73,3 +73,7 @@ class Meeting(models.Model):
                         room=self.room.name
                     )
                 )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
