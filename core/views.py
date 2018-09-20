@@ -18,14 +18,18 @@ def room_list(request):
 
 
 def meeting_list(request):
-    meetings = Meeting.objects.order_by('date', 'start')
+    meetings = Meeting.objects.prefetch_related(
+        'room',
+    ).order_by('date', 'start')
     return render(request, 'core/meeting_list.html', {
         'meetings': meetings,
     })
 
 
 def meeting_calendar(request):
-    meetings = Meeting.objects.order_by('date', 'start')
+    meetings = Meeting.objects.prefetch_related(
+        'room',
+    ).order_by('date', 'start')
     return render(request, 'core/meeting_calendar.html', {
         'meetings': meetings,
     })
