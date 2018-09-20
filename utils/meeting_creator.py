@@ -28,18 +28,18 @@ def random_time():
     return str(start) + ':00', str(end) + ':00'
 
 
-def create_meetings(room=room_list, quantity=1):
+def create_meetings(rooms, quantity=1):
     meetings = []
     for i in range(0, quantity):
         name = random.choice(names)
-        room_ = random.choice(room_list)
+        rooms = random.choice(rooms)
         date = random_date()
         start, end = random_time()
         meetings.append(mommy.make(
             Meeting,
             date=date,
             name=name,
-            room=room_,
+            room=rooms,
             start=start,
             end=end
         ))

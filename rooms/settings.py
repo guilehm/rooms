@@ -92,7 +92,10 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
-    'EXCEPTION_HANDLER': 'utils.drf_exceptions.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'utils.drf_exceptions.custom_exception_handler',
+    'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+        )
 }
 LOGGING = {
     'version': 1,
