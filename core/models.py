@@ -21,8 +21,8 @@ class Room(models.Model):
     def conflict(self, date, start, end, meeting_id):
         return self.meetings.filter(
             date=date,
-            start__lte=end,
-            end__gte=start,
+            start__lt=end,
+            end__gt=start,
         ).exclude(
             id=meeting_id
         ).exists()
