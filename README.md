@@ -124,8 +124,8 @@ Agora o projeto está rodando em [http://localhost:8000/](http://localhost:8000/
 ```
 - DELETE em [http://localhost:8000/api/meetings/1/](http://localhost:8000/api/meetings/1/)
 
-# Utilização
-Com o ambiente virtual ativado, execute
+# Django Admin
+Crie o superuser executando
 
     python manage.py createsuperuser
     
