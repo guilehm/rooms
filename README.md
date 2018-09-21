@@ -14,7 +14,7 @@ https://gui-rooms.herokuapp.com/
 * Interface para criação, visualização e edição de reuniões.
 * [Calendário](https://gui-rooms.herokuapp.com/meeting/calendar/) de visualização das reuniões com visão mensal, semanal e diária.
 * API - CRUD com Django Rest Framework utilizando Serializers e Class Based Views.
-* Documentações da API: [Swagger](https://gui-rooms.herokuapp.com/swagger/), [Redoc](https://gui-rooms.herokuapp.com/redoc/), [DRF Docs](https://gui-rooms.herokuapp.com/redoc/).
+* Documentações da API: [Swagger](https://gui-rooms.herokuapp.com/swagger/), [Redoc](https://gui-rooms.herokuapp.com/redoc/), [DRF Docs](https://gui-rooms.herokuapp.com/docs/).
 * Testes automatizados utilizando Pytest.
 * Construção do projeto documentada utilizando Git com criação de Issues e Pull Requests.
 * Integração contínua com Travis-CI.
