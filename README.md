@@ -139,7 +139,7 @@ Digite o email (opcional)
     
 Digite e confirme a senha.
 
-Acesse a interface neste link [http://localhost:8000/admin/l](http://localhost:8000/admin/l)
+Acesse a interface neste link [http://localhost:8000/admin/](http://localhost:8000/admin/)
 
 # Testes
 
