@@ -158,3 +158,17 @@ Execute os testes
 Ou rode todos de uma só vez
 
     make test
+    
+# Imagens
+#### Calendário
+
+![screenshot from 2018-09-20 22-44-34](https://user-images.githubusercontent.com/33688752/45855562-16e0b700-bd27-11e8-9182-135164d78f46.png)
+
+#### Lista de Salas
+![screenshot from 2018-09-20 22-45-30](https://user-images.githubusercontent.com/33688752/45855574-24963c80-bd27-11e8-95ee-8fa2e9a7789a.png)
+
+
+#### Lista de Reunies
+![screenshot from 2018-09-20 22-45-56](https://user-images.githubusercontent.com/33688752/45855579-3081fe80-bd27-11e8-9893-f71b1c80b479.png)
+
+
