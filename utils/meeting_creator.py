@@ -31,7 +31,7 @@ def create_meetings(rooms, quantity=1):
     meetings = []
     for i in range(0, quantity):
         name = random.choice(names)
-        rooms = random.choice(rooms)
+        room = random.choice(rooms)
         date = random_date()
         start, end = random_time()
         try:
@@ -39,7 +39,7 @@ def create_meetings(rooms, quantity=1):
                 Meeting,
                 date=date,
                 name=name,
-                room=rooms,
+                room=room,
                 start=start,
                 end=end
             ))
