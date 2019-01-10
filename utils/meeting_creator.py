@@ -8,7 +8,7 @@ from model_mommy import mommy
 from core.models import Meeting, Room
 
 start_date = timezone.now()
-end_date = start_date + timezone.timedelta(days=100)
+end_date = start_date + timezone.timedelta(days=800)
 room_list = Room.objects.all()
 
 names = [
@@ -18,9 +18,7 @@ names = [
 
 
 def random_date(start=start_date, end=end_date):
-    return start + datetime.timedelta(
-        seconds=random.randint(0, int((end - start).total_seconds())),
-    )
+    return start + datetime.timedelta(seconds=random.randint(0, int((end - start).total_seconds())))
 
 
 def random_time():
