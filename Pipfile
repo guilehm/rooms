@@ -18,7 +18,7 @@ dj-database-url = "*"
 dj-static = "*"
 "static3" = "*"
 gunicorn = "*"
-"psycopg2" = "*"
+psycopg2-binary = "*"
 model-mommy = "*"
 
 [dev-packages]
